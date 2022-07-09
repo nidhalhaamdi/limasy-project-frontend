@@ -1,6 +1,12 @@
-import { useCallback, useState } from "react";
+import { 
+  useCallback, 
+  useState 
+} from "react";
 
-import { httpPowerOn, httpPowerOff } from "./requests";
+import { 
+  httpPowerOn, 
+  httpPowerOff 
+} from "./requests";
 
 function usePower(onSuccessSound, onFailureSound) {
   const [isPendingPowerOn, setPendingPowerOn] = useState(false);

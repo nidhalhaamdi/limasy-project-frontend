@@ -7,17 +7,17 @@ import {
     Tooltip,
     ResponsiveContainer,
 } from "recharts";
-  
-const data = [
-    { date: 1, currentValue: 120 },
-    { date: 2, currentValue: 116 },
-    { date: 3, currentValue: 111 },
-    { date: 4, currentValue: 109 },
-    { date: 5, currentValue: 90 },
-    { date: 6, currentValue: 101 },
-];
 
-const Chart = ({ aspect, title, currents }) => {
+// const data = [
+//   { date: 1, currentValue: 120 },
+//   { date: 2, currentValue: 116 },
+//   { date: 3, currentValue: 111 },
+//   { date: 4, currentValue: 109 },
+//   { date: 5, currentValue: 90 },
+//   { date: 6, currentValue: 101 },
+// ];
+
+const Chart = ({ aspect, title, data }) => {
   return (
     <div className="chart">
       <div className="title">{title}</div>
@@ -34,7 +34,7 @@ const Chart = ({ aspect, title, currents }) => {
               <stop offset="95%" stopColor="#8884d8" stopOpacity={0} />
             </linearGradient>
           </defs>
-          <XAxis dataKey="date" stroke="gray" />
+          <XAxis stroke="gray" />
           <CartesianGrid strokeDasharray="3 3" className="chartGrid" />
           <Tooltip />
           <Area

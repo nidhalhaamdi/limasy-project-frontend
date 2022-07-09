@@ -4,6 +4,7 @@ import {
 import {
   Switch,
   Route,
+  Redirect,
 } from "react-router-dom";
 import {
   Frame,
@@ -13,14 +14,22 @@ import {
 
 import usePower from "../hooks/usePower";
 import useCurrent from "../hooks/useCurrent";
+import useSignIn from "../hooks/useSignIn";
+import useSignUp from "../hooks/useSignUp";
+import useSignOut from "../hooks/useSignOut";
+
 
 import Centered from "../components/Centered";
 import Header from "../components/Header";
 import Footer from "../components/Footer";
+import PrivateRoute from "../components/PrivateRoute";
 
 import Home from './Home';
 import Power from './Power';
 import Current from './Current';
+import SignIn from "./SignIn";
+import SignUp from "./SignUp";
+import SignOut from "./SignOut";
 
 const styles = () => ({
   content: {
@@ -57,6 +66,18 @@ const AppLayout = props => {
     submitPowerOn,
     submitPowerOff,
   } = usePower(onSuccessSound, onFailureSound);
+  const {
+    isPendingSignIn,
+    submitSignIn,
+  } = useSignIn(onSuccessSound, onFailureSound);
+  const {
+    isPendingSignUp,
+    submitSignUp,
+  } = useSignUp(onSuccessSound, onFailureSound);
+  const {
+    isPendingSignOut,
+    submitSignOut,
+  } = useSignUp(onSuccessSound);
   
   return <div className={classes.content}>
     <Header onNav={animateFrame} />
@@ -76,19 +97,43 @@ const AppLayout = props => {
               <Home
                 entered={anim.entered} />
             </Route>
-            <Route exact path="/current">
+            <PrivateRoute exact path="/current">
               <Current
                 entered={anim.entered}
                 currents={currents} />
-            </Route>
-            <Route exact path="/power">
+            </PrivateRoute>
+            <PrivateRoute exact path="/power">
               <Power
                 entered={anim.entered}
                 submitPowerOn={submitPowerOn}
                 submitPowerOff={submitPowerOff}
                 isPendingPowerOn={isPendingPowerOn}
                 isPendingPowerOff={isPendingPowerOff} />
-            </Route>
+            </PrivateRoute>
+            <PrivateRoute exact path="/signout">
+              <SignOut 
+                entered={anim.entered}
+                submitSignOut={submitSignOut}
+                isPendingSignOut={isPendingSignOut} />
+            </PrivateRoute>
+            <Route 
+              exact path="/signin"
+              render={() => localStorage.getItem('token') ? 
+                (<Redirect to='/' />) 
+                : 
+                (<SignIn
+                  entered={anim.entered}
+                  submitSignIn={submitSignIn}
+                  isPendingSignIn={isPendingSignIn} />)} />
+            <Route 
+              exact path="/signup"
+              render={() => localStorage.getItem('token') ? 
+                (<Redirect to='/' />) 
+                : 
+                (<SignUp
+                  entered={anim.entered}
+                  submitSignUp={submitSignUp}
+                  isPendingSignUp={isPendingSignUp} />)} />
           </Switch>
           </div>
         )}

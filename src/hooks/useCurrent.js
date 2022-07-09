@@ -6,15 +6,18 @@ function useCurrent() {
   const [currents, setCurrents] = useState([]);
 
   const getCurrents = useCallback(async () => {
-    const fetchedCurrent = await httpGetCurrents();
-    setCurrents(fetchedCurrent);
+    const fetchedCurrents = await httpGetCurrents();
+    fetchedCurrents.reverse();
+    setCurrents(fetchedCurrents);
   }, []);
 
   useEffect(() => {
     getCurrents();
   }, [getCurrents]);
 
-  return currents;
+  return {
+    currents
+  };
 }
 
 export default useCurrent;
