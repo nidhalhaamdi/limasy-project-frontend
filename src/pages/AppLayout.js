@@ -12,7 +12,9 @@ import {
   withStyles,
 } from "arwes";
 
+import useUser from "../hooks/useUser";
 import usePower from "../hooks/usePower";
+import useScenario from "../hooks/useScenario";
 import useCurrent from "../hooks/useCurrent";
 import useSignIn from "../hooks/useSignIn";
 import useSignUp from "../hooks/useSignUp";
@@ -25,7 +27,10 @@ import Footer from "../components/Footer";
 import PrivateRoute from "../components/PrivateRoute";
 
 import Home from './Home';
+import Welcome from "./Welcome";
+import LightManagement from "./LightManagement";
 import Power from './Power';
+import Scenario from "./Scenario";
 import Current from './Current';
 import SignIn from "./SignIn";
 import SignUp from "./SignUp";
@@ -59,13 +64,26 @@ const AppLayout = props => {
   const onSuccessSound = () => sounds.success && sounds.success.play();
   const onFailureSound = () => sounds.warning && sounds.warning.play();
 
+  const { user } = useUser();
   const { currents } = useCurrent();
   const {
-    isPendingPowerOn,
-    isPendingPowerOff,
-    submitPowerOn,
-    submitPowerOff,
+    isPendingPowerOn1,
+    isPendingPowerOff1,
+    isPendingPowerOn2,
+    isPendingPowerOff2,
+    isPendingPowerOn3,
+    isPendingPowerOff3,
+    submitPowerOnLine1,
+    submitPowerOffLine1,
+    submitPowerOnLine2,
+    submitPowerOffLine2,
+    submitPowerOnLine3,
+    submitPowerOffLine3,
   } = usePower(onSuccessSound, onFailureSound);
+  const { 
+    isPendingScenario1,
+    submitScenario1,
+   } = useScenario(onSuccessSound, onFailureSound);
   const {
     isPendingSignIn,
     submitSignIn,
@@ -77,7 +95,7 @@ const AppLayout = props => {
   const {
     isPendingSignOut,
     submitSignOut,
-  } = useSignUp(onSuccessSound);
+  } = useSignOut(onSuccessSound);
   
   return <div className={classes.content}>
     <Header onNav={animateFrame} />
@@ -97,6 +115,20 @@ const AppLayout = props => {
               <Home
                 entered={anim.entered} />
             </Route>
+            <PrivateRoute exact path="/">
+              <Welcome 
+                entered={anim.entered}
+                use={user} />
+            </PrivateRoute>
+            <PrivateRoute exact path="welcome">
+              <Welcome 
+                entered={anim.entered}
+                use={user} />
+            </PrivateRoute>
+            <PrivateRoute exact path="/lightmanagement">
+              <LightManagement
+                entered={anim.entered} />
+            </PrivateRoute>
             <PrivateRoute exact path="/current">
               <Current
                 entered={anim.entered}
@@ -105,10 +137,24 @@ const AppLayout = props => {
             <PrivateRoute exact path="/power">
               <Power
                 entered={anim.entered}
-                submitPowerOn={submitPowerOn}
-                submitPowerOff={submitPowerOff}
-                isPendingPowerOn={isPendingPowerOn}
-                isPendingPowerOff={isPendingPowerOff} />
+                submitPowerOnLine1={submitPowerOnLine1}
+                submitPowerOffLine1={submitPowerOffLine1}
+                submitPowerOnLine2={submitPowerOnLine2}
+                submitPowerOffLine2={submitPowerOffLine2}
+                submitPowerOnLine3={submitPowerOnLine3}
+                submitPowerOffLine3={submitPowerOffLine3}
+                isPendingPowerOn1={isPendingPowerOn1}
+                isPendingPowerOff1={isPendingPowerOff1}
+                isPendingPowerOn2={isPendingPowerOn2}
+                isPendingPowerOff2={isPendingPowerOff2}
+                isPendingPowerOn3={isPendingPowerOn3}
+                isPendingPowerOff3={isPendingPowerOff3} />
+            </PrivateRoute>
+            <PrivateRoute exact path="/scenario">
+              <Scenario 
+                entered={anim.entered}
+                isPendingScenario1={isPendingScenario1}
+                submitScenario1={submitScenario1} />
             </PrivateRoute>
             <PrivateRoute exact path="/signout">
               <SignOut 

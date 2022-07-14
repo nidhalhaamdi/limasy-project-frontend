@@ -9,8 +9,6 @@ import { Link } from "react-router-dom";
 import Clickable from "./Clickable";
 import Centered from "./Centered";
 
-import useSignOut from "../hooks/useSignOut";
-
 const styles = theme => ({
   root: {
     display: "flex",
@@ -67,8 +65,6 @@ const styles = theme => ({
 const Header = props => {
   const { classes, onNav, ...rest } = props;
 
-  const { submitSignOut } = useSignOut();
-
   return <ArwesHeader animate>
     <Centered className={classes.root} {...rest}>
       <Logo animate size={50} className={classes.logo} layer="header" />
@@ -85,18 +81,19 @@ const Header = props => {
                 </Clickable>
                 <Clickable className={classes.clickable} onClick={onNav}>
                   <Highlight className={classes.button} animate layer="header">
-                    <Link className={classes.link} to="/power">
-                    <i className="material-icons">power_settings_new</i>Power ON/OFF</Link>
+                    <Link className={classes.link} to="/lightmanagement">
+                      <i className="material-icons">power_settings_new</i>Light Management
+                    </Link>
                   </Highlight>
                 </Clickable>
                 <Clickable className={classes.clickable} onClick={onNav}>
                   <Highlight className={classes.button} animate layer="header">
                     <Link className={classes.link} to="/current">
-                      <i className="material-icons">flash_on</i>Current Value
+                      <i className="material-icons">flash_on</i>Current
                     </Link>
                   </Highlight>
                 </Clickable>
-                <Clickable className={classes.clickable} onClick={submitSignOut}>
+                <Clickable className={classes.clickable} onClick={onNav}>
                   <Highlight className={classes.button} animate layer="header">
                     <Link className={classes.link} to="/signout">
                       <i className="material-icons">logout</i>Sign Out
@@ -115,7 +112,7 @@ const Header = props => {
               <Clickable className={classes.clickable} onClick={onNav}>
                 <Highlight className={classes.button} animate layer="header">
                   <Link className={classes.link} to="/signin">
-                    <i className="material-icons">login</i>signIn
+                    <i className="material-icons">login</i>Sign In
                   </Link>
                 </Highlight>
               </Clickable>

@@ -30,6 +30,7 @@ function useSignIn(onSuccessSound, onFailureSound) {
         onSuccessSound();
       }, 800);
       localStorage.setItem("token", response.token);
+      
     } else {
       onFailureSound();
     }
