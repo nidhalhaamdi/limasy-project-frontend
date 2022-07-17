@@ -22,15 +22,12 @@ function useSignIn(onSuccessSound, onFailureSound) {
     };
 
     const response = await httpSubmitSignIn(data);
-
-    const success = response.ok;
-    if (success) {
+    
+    if (response) {
       setTimeout(() => {
         setPendingSignIn(false);
         onSuccessSound();
-      }, 800);
-      localStorage.setItem("token", response.token);
-      
+      }, 800);      
     } else {
       onFailureSound();
     }

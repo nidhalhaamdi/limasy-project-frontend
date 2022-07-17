@@ -27,13 +27,11 @@ function useSignUp(onSuccessSound, onFailureSound) {
 
     const response = await httpSubmitSignUp(data);
 
-    const success = response.ok;
-    if (success) {
+    if (response) {
       setTimeout(() => {
         setPendingSignUp(false);
         onSuccessSound();
       }, 800);
-      localStorage.setItem("token", response.token);
     } else {
       onFailureSound();
     }

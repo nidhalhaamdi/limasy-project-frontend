@@ -9,7 +9,7 @@ function useUser() {
 
   const getUser = useCallback(async () => {
     const response = await httpGetUser();
-    setUser(response.user);
+    setUser(response);
   }, []);
 
   useEffect(() => {

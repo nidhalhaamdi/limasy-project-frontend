@@ -37,17 +37,17 @@ import {
       setTimeout(async () => {
         const data = { "data": "0" };
         await httpPowerOffLine2(data);
-      }, 1000*10);
+      }, 1000*15);
 
       setTimeout(async () => {
         const data = { "data": "0" };
         await httpPowerOffLine3(data);
-      }, 1000*20);
+      }, 1000*30);
 
       setTimeout(async () => {
         const data = { "data": "0" };
         await httpPowerOffLine1(data);
-      }, 1000*30);
+      }, 1000*45);
 
     }, [onSuccessSound, onFailureSound]);
   

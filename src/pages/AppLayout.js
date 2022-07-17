@@ -120,7 +120,7 @@ const AppLayout = props => {
                 entered={anim.entered}
                 use={user} />
             </PrivateRoute>
-            <PrivateRoute exact path="welcome">
+            <PrivateRoute exact path="/welcome">
               <Welcome 
                 entered={anim.entered}
                 use={user} />

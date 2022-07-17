@@ -4,13 +4,16 @@ const API_URL = '/api';
 
 async function httpSubmitSignUp(data) {
   try {
-    return await fetch(`${API_URL}/user/signup`, {
+    const response =  await fetch(`${API_URL}/user/signup`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     });
+    const res = response.json();
+    localStorage.setItem("token", res.token);
+    return await res;
   } catch (err) {
     return {
       ok: false
@@ -20,13 +23,16 @@ async function httpSubmitSignUp(data) {
 
 async function httpSubmitSignIn(data) {
   try {
-    return await fetch(`${API_URL}/user/signin`, {
+    const response = await fetch(`${API_URL}/user/signin`, {
       method: 'post',
       headers: {
         "Content-Type": "application/json"
       },
       body: JSON.stringify(data)
     });
+    const res = await response.json();
+    localStorage.setItem("token", res.token);
+    return await res;
   } catch (err) {
     return {
       ok: false
@@ -36,11 +42,13 @@ async function httpSubmitSignIn(data) {
 
 async function httpGetUser() {
   try {
-    return await fetch(`${API_URL}/user/profile`, {
+    const response = await fetch(`${API_URL}/user/profile`, {
       headers: {
         "Authorization": localStorage.getItem("token"),
       }
     });
+    const res = response.json();
+    return res.user;
   } catch (err) {
     return {
       ok: false
