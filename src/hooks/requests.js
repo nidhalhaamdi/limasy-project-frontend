@@ -11,7 +11,7 @@ async function httpSubmitSignUp(data) {
       },
       body: JSON.stringify(data)
     });
-    const res = response.json();
+    const res = await response.json();
     localStorage.setItem("token", res.token);
     return await res;
   } catch (err) {

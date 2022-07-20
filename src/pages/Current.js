@@ -10,7 +10,7 @@ const Current = ({ entered, currents }) => {
   return <Appear id="current" animate show={entered}>
     <Paragraph>This is the current value that we get from our STM32-NUCLEO device.</Paragraph>
     <Paragraph>It's automatically generated everytime we click on this button :</Paragraph>
-    <Chart title="Last 6 current values" aspect={2 / 1} data={data} />
+    <Chart title="Last 20 current values" aspect={2 / 1} data={data} />
   </Appear>
 };
 
